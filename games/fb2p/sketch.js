@@ -46,17 +46,17 @@ function draw() {
 
     if (pipes[i].hits(bird)) {
       birdAlive = false;
-      gameover();
     }
 
     if (pipes[i].hits(bird2)) {
       bird2Alive = false
-      gameover();
     }
 
     if (pipes[i].offscreen()) {
       pipes.splice(i, 1);
     }
+
+    if(!birdAlive ||!bird2Alive) gameover();
   }
 
   if(birdAlive) {
@@ -96,14 +96,14 @@ function gameover() {
   textSize(64);
   textAlign(CENTER, CENTER);
   if (birdAlive) {
-    scoreBlue++;
+    console.log("BLUE");
+    scoreBlue += 1;
     text('Blue wins', width / 2, height / 2);
-  }
-  if (bird2Alive) {
-    scoreGreen++;
+  } else if (bird2Alive) {
+    console.log("GREEN");
+    scoreGreen += 1;
     text('Green wins', width / 2, height / 2);
-  } 
-  if(!birdAlive && !bird2Alive) {
+  } else {
     text('DRAW', width / 2, height / 2);
   }
   textAlign(LEFT, BASELINE);
