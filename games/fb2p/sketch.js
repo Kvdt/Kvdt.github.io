@@ -56,7 +56,11 @@ function draw() {
       pipes.splice(i, 1);
     }
 
-    if(!birdAlive ||!bird2Alive) gameover();
+    if(!birdAlive ||!bird2Alive) { 
+      console.log("checker call");
+      isOver = true;
+      gameover(); 
+    }
   }
 
   if(birdAlive) {
@@ -93,25 +97,32 @@ function showScores() {
 }
 
 function gameover() {
+  
+  isOver = true;
+  console.log("Gameover call");
   textSize(64);
   textAlign(CENTER, CENTER);
   if (birdAlive) {
     console.log("BLUE");
-    scoreBlue += 1;
     text('Blue wins', width / 2, height / 2);
   } else if (bird2Alive) {
     console.log("GREEN");
-    scoreGreen += 1;
     text('Green wins', width / 2, height / 2);
   } else {
     text('DRAW', width / 2, height / 2);
   }
   textAlign(LEFT, BASELINE);
-  isOver = true;
   noLoop();
 }
 
 function reset() {
+  if (birdAlive && !bird2Alive) {
+    console.log("BLUE");
+    scoreBlue++;
+  } else if (bird2Alive && !birdAlive) {
+    console.log("GREEN");
+    scoreGreen++;
+  }
   isOver = false;
   bgX = 0;
   pipes = [];
